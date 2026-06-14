@@ -832,8 +832,9 @@ function mostrarBaseN(id, responderam, segmento){
   let nb = h3.querySelector('.nbase');
   if(!nb){ nb=document.createElement('span'); nb.className='nbase'; h3.appendChild(nb); }
   const semResp = Math.max(0, segmento - responderam);
-  nb.textContent = semResp>0 ? `N=${segmento} · ${semResp} sem resposta` : `N=${segmento}`;
-  nb.title = semResp>0
+  const ocultarSemResp = id === 'cUnidade';
+  nb.textContent = (semResp>0 && !ocultarSemResp) ? `N=${segmento} · ${semResp} sem resposta` : `N=${segmento}`;
+  nb.title = (semResp>0 && !ocultarSemResp)
     ? `Universo de ${segmento} no segmento — ${responderam} responderam, ${semResp} não responderam`
     : `${segmento} respondentes`;
 }
