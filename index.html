@@ -673,7 +673,7 @@ const rotuloPizza={
       const v=dados[i]; if(!v) return;
       const pct=v/total*100; if(pct<7) return;   // não rotula fatias minúsculas
       const pos=arc.tooltipPosition();
-      ctx.fillText(Math.round(pct)+'%', pos.x, pos.y);
+      ctx.fillText(pct.toFixed(1)+'%', pos.x, pos.y);
     });
     ctx.restore();
   }
@@ -702,7 +702,7 @@ function donut(id, dados, cor, base, opt={}){
               const d=chart.data, ds=d.datasets[0];
               const total=ds.data.reduce((a,b)=>a+(b||0),0);
               return d.labels.map((l,i)=>{
-                const p=total?Math.round(ds.data[i]/total*100):0;
+                const p=total?(ds.data[i]/total*100).toFixed(1):'0.0';
                 const rot=ROT_LEGENDA[l]||ROT[l]||l;
                 return {text:`${rot} — ${p}%`, fillStyle:ds.backgroundColor[i], strokeStyle:ds.backgroundColor[i], index:i};
               });
@@ -775,7 +775,7 @@ function renderQual(rows){
       html += linhas.map(([nome,n])=>{
         const pct=(n/tot*100), w=(n/max*100);
         return `<div class="qtema"><div class="qtema-top"><span class="qtema-lbl">${nome}</span>`+
-          `<span class="qtema-val">${pct.toFixed(0)}% <span>(${n})</span></span></div>`+
+          `<span class="qtema-val">${pct.toFixed(1)}% <span>(${n})</span></span></div>`+
           `<div class="qtema-bar"><div class="qtema-fill" style="width:${w}%;background:#1b3b5f"></div></div></div>`;
       }).join('');
     } else {
@@ -855,7 +855,7 @@ function renderInsightsTemas(rows){
       const pct=(n/tot*100), w=(n/max*100);
       return `<div class="insight-row"><div class="lbl">${nome}</div>
         <div class="bar-wrap"><div class="bar-fill" style="width:${w}%;background:#1b3b5f"></div></div>
-        <div class="pct">${pct.toFixed(0)}% <span style="color:#94a3b8;font-weight:500">(${n})</span></div></div>`;
+        <div class="pct">${pct.toFixed(1)}% <span style="color:#94a3b8;font-weight:500">(${n})</span></div></div>`;
     }).join('');
 }
 
